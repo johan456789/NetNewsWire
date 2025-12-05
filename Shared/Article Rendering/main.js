@@ -116,6 +116,14 @@ function reloadArticleImage(imageSrc) {
 	image.src = imageSrc + "?" + new Date().getTime();
 }
 
+function addYouTubeReferrerPolicy() {
+	document.querySelectorAll("iframe").forEach(element => {
+		if (element.src.includes("youtube.com/embed") || element.src.includes("youtube-nocookie.com/embed")) {
+			element.setAttribute("referrerpolicy", "strict-origin-when-cross-origin");
+		}
+	});
+}
+
 function stopMediaPlayback() {
 	document.querySelectorAll("iframe").forEach(element => {
 		var iframeSrc = element.src;
@@ -166,6 +174,7 @@ function processPage() {
 	flattenPreElements();
 	styleLocalFootnotes();
 	removeWpSmiley()
+	addYouTubeReferrerPolicy();
 	postRenderProcessing();
 }
 
